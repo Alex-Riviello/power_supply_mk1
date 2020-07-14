@@ -16,7 +16,7 @@ TODO: Translate to english.
 ### Circuit Design
 
 The PCB was designed using KiCAD. The KiCAD project can be found in the ./kicad_psu_mk1 directory.  
-NOTE: This was one of my first PCB designs. I tried using many through-hole components to test them on a breadboard. Having known the PCB price only depended on the PCB size, I would have eliminated a lot of the empty space.
+NOTE: This was one of my first PCB designs. I tried using many through-hole components to test them on a breadboard.
 
 #### Schematic
 
