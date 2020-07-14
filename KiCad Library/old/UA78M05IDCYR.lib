@@ -1,0 +1,30 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# UA78M05IDCYR
+#
+DEF UA78M05IDCYR U 0 40 Y Y 1 L N
+F0 "U" -179 284 50 H V L BNN
+F1 "UA78M05IDCYR" -227 -621 50 H V L BNN
+F2 "SOT230P700X180-4N" 0 0 50 H I L BNN
+F3 "Texas Instruments" 0 0 50 H I L BNN "MF"
+F4 "3/4 Pin 500mA Fixed 5V Positive Voltage Regulator 4-SOT-223 0 to 125" 0 0 50 H I L BNN "Description"
+F5 "UA78M05CDCYR" 0 0 50 H I L BNN "MP"
+F6 "SOT-223 Texas Instruments" 0 0 50 H I L BNN "Package"
+F7 "Good" 0 0 50 H I L BNN "Availability"
+F8 "0.34 USD" 0 0 50 H I L BNN "Price"
+DRAW
+P 2 0 0 16 -600 200 -600 -500 N
+P 2 0 0 16 -600 -500 600 -500 N
+P 2 0 0 16 600 -500 600 200 N
+P 2 0 0 16 600 200 -600 200 N
+X INPUT 1 -800 0 200 R 40 40 0 0 I 
+X OUTPUT 3 -800 -300 200 R 40 40 0 0 I 
+X COMMON_2 2 800 -200 200 L 40 40 0 0 O 
+X COMMON 4 800 -100 200 L 40 40 0 0 O 
+ENDDRAW
+ENDDEF
+#
+# End Library

@@ -1,0 +1,56 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# FOD817BS
+#
+DEF FOD817BS Q 0 40 Y N 1 L N
+F0 "Q" -300 200 50 H V L BNN
+F1 "FOD817BS" -301 -301 50 H V L BNN
+F2 "SOIC254P1016X385-4N" 0 0 50 H I L BNN
+F3 "SMD-4 Fairchild Semiconductor" 0 0 50 H I L BNN "Package"
+F4 "Fairchild Semiconductor" 0 0 50 H I L BNN "MF"
+F5 "0.19 USD" 0 0 50 H I L BNN "Price"
+F6 "FOD817BS" 0 0 50 H I L BNN "MP"
+F7 "Single Channel 70 V 5000 Vrms SMT Phototransistor Optocoupler - DIP-4" 0 0 50 H I L BNN "Description"
+F8 "Good" 0 0 50 H I L BNN "Availability"
+DRAW
+P 2 0 0 10 -300 200 -300 -200 N
+P 2 0 0 10 -300 -200 300 -200 N
+P 2 0 0 10 300 -200 300 200 N
+P 2 0 0 10 300 200 -300 200 N
+P 2 0 0 10 -100 100 -300 100 N
+P 2 0 0 10 -100 -100 -300 -100 N
+P 2 0 0 10 300 100 150 100 N
+P 2 0 0 10 300 -100 150 -100 N
+P 2 0 0 10 -100 100 -100 50 N
+P 2 0 0 10 -100 50 -50 50 N
+P 2 0 0 10 -50 50 -100 -50 N
+P 2 0 0 10 -100 -50 -150 50 N
+P 2 0 0 10 -150 50 -100 50 N
+P 2 0 0 10 -150 -50 -100 -50 N
+P 2 0 0 10 -100 -50 -50 -50 N
+P 2 0 0 10 -100 -50 -100 -100 N
+P 2 0 0 10 100 100 100 50 N
+P 2 0 0 10 100 50 100 -50 N
+P 2 0 0 10 100 -50 100 -100 N
+P 2 0 0 10 150 100 100 50 N
+P 2 0 0 10 100 -50 150 -100 N
+P 2 0 0 10 150 -100 150 -75 N
+P 2 0 0 10 150 -75 125 -100 N
+P 2 0 0 10 125 -100 150 -100 N
+P 2 0 0 10 -25 25 25 25 N
+P 2 0 0 10 25 25 -25 -38 N
+P 2 0 0 10 -25 -38 38 -38 N
+P 2 0 0 10 38 -38 13 -25 N
+P 2 0 0 10 13 -25 13 -50 N
+P 2 0 0 10 13 -50 38 -38 N
+X ANODE 1 -400 100 100 R 40 40 0 0 P 
+X CATHODE 2 -400 -100 100 R 40 40 0 0 P 
+X EMITTER 3 400 -100 100 L 40 40 0 0 P 
+X COLLECTOR 4 400 100 100 L 40 40 0 0 P 
+ENDDRAW
+ENDDEF
+#
+# End Library

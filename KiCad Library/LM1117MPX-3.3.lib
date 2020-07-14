@@ -1,0 +1,31 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# LM1117MPX-3.3
+#
+DEF LM1117MPX-3.3 U 0 40 Y N 1 L N
+F0 "U" -300 225 50 H V L BNN
+F1 "LM1117MPX-3.3" -300 125 50 H V L BNN
+F2 "SOT230P700X180-4N" 0 0 50 H I L BNN
+F3 "Linear Regulator%2C Fix%2C 3.3v%2C 800ma%2C Sot-223-4%2C Full Reel" 0 0 50 H I L BNN "Description"
+F4 "Texas Instruments" 0 0 50 H I L BNN "MF"
+F5 "Good" 0 0 50 H I L BNN "Availability"
+F6 "LM1117MPX-3.3/NOPB" 0 0 50 H I L BNN "MP"
+F7 "SOT-223 Texas Instruments" 0 0 50 H I L BNN "Package"
+F8 "0.62 USD" 0 0 50 H I L BNN "Price"
+DRAW
+P 2 0 0 16 -300 -200 300 -200 N
+P 2 0 0 16 300 -200 300 100 N
+P 2 0 0 16 300 100 -300 100 N
+P 2 0 0 16 -300 100 -300 -200 N
+T 0 -80 -170 60 0 0 0 GND Normal 0 L B
+X VI 3 -400 0 100 R 40 40 0 0 I 
+X GND 1 0 -300 100 U 40 40 0 0 P 
+X VO 2 400 0 100 L 40 40 0 0 P 
+X VO 4 400 0 100 L 40 40 0 0 P 
+ENDDRAW
+ENDDEF
+#
+# End Library

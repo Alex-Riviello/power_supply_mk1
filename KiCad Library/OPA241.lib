@@ -1,0 +1,46 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# OPA241
+#
+DEF OPA241 IC 0 40 Y N 1 L N
+F0 "IC" 100 225 50 H V L BNN
+F1 "OPA241" 100 -200 50 H V L BNN
+F3 "Texas Instruments" 0 0 50 H I L BNN "MF"
+F4 "None" 0 0 50 H I L BNN "Package"
+F5 "Unavailable" 0 0 50 H I L BNN "Availability"
+F6 "The OPA241 series and OPA251 series are specifically designed for battery powered, portable applications. In addition..." 0 0 50 H I L BNN "Description"
+F7 "OPA241" 0 0 50 H I L BNN "MP"
+F8 "None" 0 0 50 H I L BNN "Price"
+$FPLIST
+ DIL08
+ SO08
+$ENDFPLIST
+DRAW
+P 2 0 0 6 -150 125 -150 75 N
+P 2 0 0 6 -175 100 -125 100 N
+P 2 0 0 6 -175 -100 -125 -100 N
+P 2 0 0 6 -100 200 -100 153 N
+P 2 0 0 6 0 199 0 103 N
+P 2 0 0 6 0 -103 0 -200 N
+P 2 0 0 6 -100 -154 -100 -200 N
+P 2 0 0 16 200 0 -200 200 N
+P 2 0 0 16 -200 200 -200 -200 N
+P 2 0 0 16 -200 -200 200 0 N
+T 900 -50 175 32 0 0 0 V+ Normal 0 L B
+T 900 -50 -225 32 0 0 0 V- Normal 0 L B
+T 900 50 125 32 0 0 0 TRIM1 Normal 0 L B
+T 900 50 -250 32 0 0 0 TRIM2 Normal 0 L B
+X TRIM1 1 0 300 100 D 40 40 0 0 P 
+X -IN 2 -300 -100 100 R 40 40 0 0 I 
+X +IN 3 -300 100 100 R 40 40 0 0 I 
+X OUT 6 300 0 100 L 40 40 0 0 O 
+X TRIM2 5 0 -300 100 U 40 40 0 0 P 
+X V+ 7 -100 300 100 D 40 40 0 0 I 
+X V- 4 -100 -300 100 U 40 40 0 0 I 
+ENDDRAW
+ENDDEF
+#
+# End Library

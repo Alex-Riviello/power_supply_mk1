@@ -1,0 +1,53 @@
+PCBNEW-LibModule-V1  
+# encoding utf-8
+Units mm
+$INDEX
+CAPC2012X140N
+$EndINDEX
+$MODULE CAPC2012X140N
+Po 0 0 0 15 00000000 00000000 ~~
+Li CAPC2012X140N
+Cd 
+Sc 00000000
+At SMD
+Op 0 0 0
+.SolderMask 0
+.SolderPaste 0
+T0 0.74 -1.635 1 1 0 0.05 N V 21 "CAPC2012X140N"
+T1 1.375 1.665 1 1 0 0.05 N V 21 "VAL**"
+DS 0 -0.55 0 0.55 0.2 21
+DS -1.75 -1 1.75 -1 0.05 24
+DS 1.75 -1 1.75 1 0.05 24
+DS 1.75 1 -1.75 1 0.05 24
+DS -1.75 1 -1.75 -1 0.05 24
+DS -1 -0.65 1 -0.65 0.127 24
+DS 1 -0.65 1 0.65 0.127 24
+DS 1 0.65 -1 0.65 0.127 24
+DS -1 0.65 -1 -0.65 0.127 24
+DP 0 0 0 0 4 0.381 24
+Dl -1 -0.65
+Dl -0.5 -0.65
+Dl -0.5 0.65
+Dl -1 0.65
+DP 0 0 0 0 4 0.381 24
+Dl 0.5 -0.65
+Dl 1 -0.65
+Dl 1 0.65
+Dl 0.5 0.65
+$PAD
+Sh "1" R 1.15 1.45 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -0.9 0
+$EndPAD
+$PAD
+Sh "2" R 1.15 1.45 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 0.9 0
+$EndPAD
+$EndMODULE CAPC2012X140N

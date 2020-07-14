@@ -1,0 +1,37 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# 2N3906
+#
+DEF 2N3906 Q 0 40 N N 1 L N
+F0 "Q" 200 200 50 H V L BNN
+F1 "2N3906" 200 100 50 H V L BNN
+F2 "TO92D" 0 0 50 H I L BNN
+F3 "TO-92 Multicomp" 0 0 50 H I L BNN "Package"
+F4 "Multicomp" 0 0 50 H I L BNN "MF"
+F5 "0.14 USD" 0 0 50 H I L BNN "Price"
+F6 "2N3906" 0 0 50 H I L BNN "MP"
+F7 "Transistor; Transistor Polarity: PNP; Collector Emitter Voltage, V(br)ceo: 40V; Transition Frequency Typ, ft: 250MHz;..." 0 0 50 H I L BNN "Description"
+F8 "Good" 0 0 50 H I L BNN "Availability"
+DRAW
+P 2 0 0 6 100 -100 0 0 N
+P 2 0 0 6 0 0 40 40 N
+P 2 0 0 6 65 95 40 40 N
+P 2 0 0 6 40 40 50 50 N
+P 2 0 0 6 50 50 100 100 N
+P 2 0 0 6 40 40 95 65 N
+P 2 0 0 6 95 65 65 95 N
+P 2 0 0 10 50 50 65 85 N
+P 2 0 0 10 65 85 85 65 N
+P 2 0 0 10 85 65 50 50 N
+P 2 0 0 10 65 75 75 65 N
+S -15 -100 15 100 0 0 0 F
+X B B -100 0 100 R 40 40 0 0 P 
+X E E 100 200 100 D 40 40 0 0 P 
+X C C 100 -200 100 U 40 40 0 0 P 
+ENDDRAW
+ENDDEF
+#
+# End Library

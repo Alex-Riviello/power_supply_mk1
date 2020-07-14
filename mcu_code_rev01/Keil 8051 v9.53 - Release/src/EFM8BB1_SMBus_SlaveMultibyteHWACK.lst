@@ -1,0 +1,181 @@
+C51 COMPILER V9.53.0.0   EFM8BB1_SMBUS_SLAVEMULTIBYTEHWACK                                 11/07/2017 22:45:47 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE EFM8BB1_SMBUS_SLAVEMULTIBYTEHWACK
+OBJECT MODULE PLACED IN .\src\EFM8BB1_SMBus_SlaveMultibyteHWACK.OBJ
+COMPILER INVOKED BY: c:\SiliconLabs\SimplicityStudio\v4\developer\toolchains\keil_8051\9.53\BIN\C51.exe C:\Users\Alex\Si
+                    -mplicityStudio\v4_workspace\PowerSupply_Rev01\src\EFM8BB1_SMBus_SlaveMultibyteHWACK.c OMF2 SMALL DEBUG OBJECTEXTEND ROM(
+                    -LARGE) WARNINGLEVEL(2) FLOATFUZZY(3) OPTIMIZE(9,SPEED) DEFINE(NDEBUG=1) INTVECTOR(0X0000) INTPROMOTE INCDIR(C:\Users\Ale
+                    -x\SimplicityStudio\v4_workspace\PowerSupply_Rev01\inc;C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.0.5//Dev
+                    -ice/shared/si8051base;C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.0.5//Device/EFM8BB1/inc) REGFILE(PowerSu
+                    -pply_Rev01.ORC) PRINT(.\src\EFM8BB1_SMBus_SlaveMultibyteHWACK.lst) COND PAGEWIDTH(120) PAGELENGTH(65) OBJECT(.\src\EFM8B
+                    -B1_SMBus_SlaveMultibyteHWACK.OBJ)
+
+line level    source
+
+   1          //-----------------------------------------------------------------------------
+   2          // EFM8BB1_SMBus_SlaveMultibyteHWACK.c
+   3          //-----------------------------------------------------------------------------
+   4          // Copyright 2014 Silicon Laboratories, Inc.
+   5          // http://developer.silabs.com/legal/version/v11/Silicon_Labs_Software_License_Agreement.txt
+   6          //
+   7          // Program Description:
+   8          //
+   9          // Example software to demonstrate the SMBus interface in Slave mode
+  10          // with Hardware Ack enabled:
+  11          // - Interrupt-driven SMBus implementation
+  12          // - Only slave states defined
+  13          // - Multi-byte SMBus data holders used for both transmit and receive
+  14          // - SMB0CN_ARBLOST support included
+  15          // - supports multiple-byte writes and multiple-byte reads
+  16          //
+  17          // Resources:
+  18          //   SYSCLK - 24.5 MHz HFOSC / 1
+  19          //   SMBus  - SMBus master, SCL = 10 kHz
+  20          //   Timer1 - SMBus clock rate (used only for free timeout detection)
+  21          //   Timer3 - SMBus SCL low timeout detection
+  22          //   P0.0   - Display enable
+  23          //   P1.2   - SMBus SDA
+  24          //   P1.3   - SMBus SCL
+  25          //   P1.4   - LED green
+  26          //
+  27          //-----------------------------------------------------------------------------
+  28          // How To Test: EFM8BB1 STK (SMBus Slave) + EFM8BB1 STK (SMBus Master)
+  29          //-----------------------------------------------------------------------------
+  30          // 1) Connect the device first EFM8BB1 STK to second EFM8BB1 STK running the
+  31          //    corresponding SMBus_Master_Multibyte code.
+  32          // 2) Place the switch in "AEM" mode.
+  33          // 3) Connect the EFM8BB1 STK board to a PC using a mini USB cable.
+  34          // 4) Compile and download code to the first EFM8BB1 STK board.
+  35          //    In Simplicity Studio IDE, select Run -> Debug from the menu bar,
+  36          //    click the Debug button in the quick menu, or press F11.
+  37          // 5) Run the code.
+  38          //    In Simplicity Studio IDE, select Run -> Resume from the menu bar,
+  39          //    click the Resume button in the quick menu, or press F8.
+  40          // 6) The slave code will write data and read data from the
+  41          //    same data byte, so a successive write and read will effectively echo the
+  42          //    data written. To verify that the code is working properly, verify on the
+  43          //    master that the data written is the same as the data received.
+  44          //
+  45          // Target:         EFM8BB1
+  46          // Tool chain:     Generic
+  47          //
+  48          // Release 0.1 (ST)
+  49          //    - Initial Revision
+  50          //    - 10 OCT 2014
+C51 COMPILER V9.53.0.0   EFM8BB1_SMBUS_SLAVEMULTIBYTEHWACK                                 11/07/2017 22:45:47 PAGE 2   
+
+  51          //
+  52          
+  53          //-----------------------------------------------------------------------------
+  54          // Includes
+  55          //-----------------------------------------------------------------------------
+  56          #include <SI_EFM8BB1_Register_Enums.h>
+  57          #include "InitDevice.h"
+  58          #include "EFM8BB1_SMBus_SlaveMultibyteHWACK.h"
+  59          
+  60          //-----------------------------------------------------------------------------
+  61          // Global Variables
+  62          //-----------------------------------------------------------------------------
+  63          // Global holder for SMBus data.
+  64          // All receive data is written here
+  65          // NUM_BYTES_WR used because an SMBus write is Master->Slave
+  66          uint8_t SMB_DATA_IN[NUM_BYTES_WR];
+  67          extern uint16_t CEX0_Compare_Value;    // Holds current PCA compare value
+  68          extern uint16_t CEX1_Compare_Value;    // Holds current PCA compare value
+  69          // Global holder for SMBus data.
+  70          // All transmit data is read from here
+  71          // NUM_BYTES_RD used because an SMBus read is Slave->Master
+  72          uint8_t SMB_DATA_OUT[NUM_BYTES_RD];
+  73          
+  74          bool DATA_READY = 0;                    // Set to '1' by the SMBus ISR
+  75          uint8_t p_voltage_val_msb = 0;
+  76          uint8_t p_voltage_val_lsb = 0;
+  77          uint8_t n_voltage_val_msb = 0;
+  78          uint8_t n_voltage_val_lsb = 0;
+  79          
+  80          //-----------------------------------------------------------------------------
+  81          // Main Routine
+  82          //-----------------------------------------------------------------------------
+  83          //
+  84          // Main routine performs all configuration tasks, then waits for SMBus
+  85          // communication.
+  86          //
+  87          //-----------------------------------------------------------------------------
+  88          void main (void)
+  89          {
+  90   1         uint8_t i;
+  91   1         uint16_t delay_count;               // Used to implement a delay
+  92   1         uint16_t positive_voltage = 0;
+  93   1         uint16_t negative_voltage = 0;
+  94   1         uint16_t old_positive_voltage = 0;
+  95   1         uint16_t old_negative_voltage = 0;
+  96   1      
+  97   1         enter_DefaultMode_from_RESET();
+  98   1      
+  99   1         // Initialize the outgoing data array in case a read is done before a
+ 100   1         // write
+ 101   1         for(i = 0; i < NUM_BYTES_RD; i++)
+ 102   1         {
+ 103   2            SMB_DATA_OUT[i] = 0xFD;
+ 104   2         }
+ 105   1      
+ 106   1         //Added this to test
+ 107   1        // P0 = 0x00;
+ 108   1      
+ 109   1         // Configure initial PWM duty cycle = 10%
+ 110   1         //CEX0_Compare_Value = 2048 - (2048 * 0.1);
+ 111   1         //CEX1_Compare_Value = 2048 - (2048 * 0.1);
+ 112   1         CEX0_Compare_Value = 2048 - positive_voltage;
+ 113   1         CEX1_Compare_Value = 2048 - negative_voltage;
+C51 COMPILER V9.53.0.0   EFM8BB1_SMBUS_SLAVEMULTIBYTEHWACK                                 11/07/2017 22:45:47 PAGE 3   
+
+ 114   1      
+ 115   1         while(1)
+ 116   1         {
+ 117   2                 // Wait a little while
+ 118   2                 for (delay_count = 1200; delay_count > 0; delay_count--);
+ 119   2      
+ 120   2                 positive_voltage = p_voltage_val_msb*256 + p_voltage_val_lsb;
+ 121   2                 negative_voltage = n_voltage_val_msb*256 + n_voltage_val_lsb;
+ 122   2      
+ 123   2                 if((old_positive_voltage != positive_voltage) || (old_negative_voltage != negative_voltage)){
+ 124   3      
+ 125   3                         if(positive_voltage > 0x7FF){
+ 126   4                                 positive_voltage = 0x7FF;
+ 127   4                         }
+ 128   3                         if(negative_voltage > 0x7FF){
+ 129   4                                 negative_voltage = 0x7FF;
+ 130   4                         }
+ 131   3      
+ 132   3                         CEX0_Compare_Value = 2048 - positive_voltage;
+ 133   3                         CEX1_Compare_Value = 2048 - negative_voltage;
+ 134   3      
+ 135   3                         old_positive_voltage = positive_voltage;
+ 136   3                         old_negative_voltage = negative_voltage;
+ 137   3      
+ 138   3                         // Wait a little while
+ 139   3                         for (delay_count = 1200; delay_count > 0; delay_count--);
+ 140   3                 }
+ 141   2      
+ 142   2         }
+ 143   1      }
+ 144          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    188    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      9       8
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
