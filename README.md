@@ -53,9 +53,13 @@ The python GUI used is illustrated below. The voltage could be set and read in r
 
 ### Final Result
 
-The final circuit looked like this:
+Overall, the PSU could provide upto 1.5 A of current at +/-2V to +/- 12.5V. The final circuit looked like this:
 
 ![](images/pcb_layout.jpg)
+
+With the case, the prototype looked like this:
+
+![](images/final_case.jpg)
 
 
 
